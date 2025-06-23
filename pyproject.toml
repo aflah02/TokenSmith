@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "tokensmith"
+version = "0.1.0"
+description = "A Package for Streamlining Data Editing, Search, and Inspection for Large-Scale Language Model Training and Interpretability"
+authors = ["Your Name <your.email@example.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/aflah02/tokensmith"
+repository = "https://github.com/aflah02/tokensmith"
+keywords = ["dataset", "management", "editing", "sampling", "exporting", "searching"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+# Add other dependencies here
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

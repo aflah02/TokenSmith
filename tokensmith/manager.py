@@ -4,7 +4,7 @@ from tokensmith.inspect import InspectHandler
 from tokensmith.search import SearchHandler
 from tokensmith.sample import SampleHandler
 from tokensmith.export import ExportHandler
-from utils import WriteableMMapIndexedDataset
+from tokensmith.utils import WriteableMMapIndexedDataset
 from typing import Optional
 
 class DatasetManager:
