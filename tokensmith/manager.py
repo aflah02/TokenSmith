@@ -10,10 +10,10 @@ from typing import Optional
 class DatasetManager:
     def __init__(self):
         # Edit, Inspect, Sample, and Export handlers are initialized to None and will be set up when setup_edit_inspect_sample_export is called
-        self.edit = Optional[EditHandler] = None
-        self.inspect = Optional[InspectHandler] = None
-        self.sample = Optional[SampleHandler] = None
-        self.export = Optional[ExportHandler] = None
+        self.edit: Optional[EditHandler] = None
+        self.inspect: Optional[InspectHandler] = None
+        self.sample: Optional[SampleHandler] = None
+        self.export: Optional[ExportHandler] = None
 
         # SearchHandler will be initialized when setup_search is called
         self.search: Optional[SearchHandler] = None
@@ -41,6 +41,7 @@ class DatasetManager:
             None
         """
         if self.search is None:
+            print(SearchHandler)
             self.search = SearchHandler(
                 bin_file_path=bin_file_path,
                 index_save_path=search_index_save_path,
@@ -54,16 +55,26 @@ class DatasetManager:
                 "Create a new DatasetManager instance or reset `search` manually."
             )
 
-    def setup_edit_inspect_sample_export(self, dataset_prefix: str, batch_info_prefix: str, train_seq_len: int, add_extra_token_to_seq: int = 1):
+    def setup_edit_inspect_sample_export(self, dataset_prefix: str, batch_info_save_prefix: str,
+                                         train_iters: int, train_batch_size: int, train_seq_len: int, seed: int, splits_string: str = '969,30,1',
+                                         packing_impl: str = 'packed',
+                                         allow_chopped: bool = True,
+                                         add_extra_token_to_seq: int = 1):
         """
         Initializes the EditHandler, InspectHandler, SampleHandler, and ExportHandler.
         This method is called to set up the handlers with the provided bin file path.
 
         Parameters:
             dataset_prefix (str): Prefix for the dataset files. This is used to locate the {dataset_prefix}.bin and {dataset_prefix}.idx files.
-            batch_info_prefix (str): Prefix for the batch information files. This is used to locate the doc/sample/shuffle indexes with the given prefix
+            batch_info_save_prefix (str): Prefix for the batch information files. This is used to locate the doc/sample/shuffle indexes with the given prefix/save path if the files are not found.
+            train_iters (int): Number of training iterations for simulated training.
+            train_batch_size (int): Size of each training batch for simulated training.
             train_seq_len (int): Length of the training sequences.
-            add_extra_token_to_seq (int): Number of extra tokens to add to each sequence (default to 1 to account adding EOS token)
+            seed (int): Random seed for simulated training.
+            splits_string (str): Comma-separated string of train/val/test splits. (defaults to '969,30,1' which means 96.9% train, 3% val, and 0.1% test).
+            packing_impl (str): Implementation for packing sequences. One of 'packed', 'pack_until_overflow', 'unpacked'. (defaults to 'packed').
+            allow_chopped (bool): WARNING: if your packing impl is packed, this is ignored. Allow chopped samples in the dataset. E.g if your sequence length is 1024 and you have a sample of length 1026, it will be chopped to 1024 (defaults to True).
+            add_extra_token_to_seq (int): Number of extra tokens to add to each sequence (defaults to 1 to account for causal language modeling).
 
         Raises:
             ValueError: 
@@ -77,7 +88,13 @@ class DatasetManager:
 
         self.WriteableMMapIndexedDataset = WriteableMMapIndexedDataset(
             dataset_prefix=dataset_prefix,
-            batch_info_prefix=batch_info_prefix,
+            batch_info_save_prefix=batch_info_save_prefix,
+            train_iters=train_iters,
+            train_batch_size=train_batch_size,
+            seed=seed,
+            splits_string=splits_string,
+            packing_impl=packing_impl,
+            allow_chopped=allow_chopped,
             train_seq_len=train_seq_len,
             add_extra_token_to_seq=add_extra_token_to_seq
         )

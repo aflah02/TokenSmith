@@ -1,11 +1,8 @@
-class ExportHandler:
-    def __init__(self):
-        pass
+from typing import TYPE_CHECKING, List
 
-    def export(self):
-        """
-        Exports the dataset to a specified format.
-        
-        This method should be implemented to handle the export logic.
-        """
-        raise NotImplementedError("Export method is not implemented yet.")
+if TYPE_CHECKING:
+    from ..manager import DatasetManager  # only used for type hints, won't cause import loop
+
+class ExportHandler:
+    def __init__(self, manager: 'DatasetManager'):
+        self.manager = manager

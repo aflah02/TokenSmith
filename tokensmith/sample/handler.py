@@ -20,14 +20,14 @@ class SampleHandler:
         if return_doc_details:
             samples = [
                 self.manager.WriteableMMapIndexedDataset.get_example_by_id(
-                    sample_id=index,
+                    example_loc=index,
                     return_doc_details=return_doc_details
                 ) for index in indexes
             ]
         else:
             samples = [
                 self.manager.WriteableMMapIndexedDataset.get_example_by_id(
-                    sample_id=index,
+                    example_loc=index,
                     return_doc_details=return_doc_details
                 ) for index in indexes
             ]

@@ -1,5 +1,10 @@
 from typing import TYPE_CHECKING, Literal, Optional
 import numpy as np
+import warnings
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 if TYPE_CHECKING:
     from ..manager import DatasetManager  # only used for type hints, won't cause import loop
@@ -15,7 +20,8 @@ class EditHandler:
         injection_loc: int,
         injection_type: Literal["seq_shuffle", "seq_start"] = "seq_shuffle",
         rng: Optional[np.random.Generator] = None,
-        dry_run: bool = False
+        add_eos_token: bool = True,
+        dry_run: bool = True
     ) -> None:
         """
         Injects a dummy sequence into the dataset at a given location and prints before/after samples.
@@ -37,8 +43,17 @@ class EditHandler:
             raise ValueError("injection_type must be 'seq_shuffle' or 'seq_start'.")
 
         dummy_sample = np.array(
-            tokenizer(text, add_special_tokens=True)["input_ids"]
+            tokenizer(text)["input_ids"]
         )
+
+        if add_eos_token:
+            # Check if eos_token is already in the sample
+            if dummy_sample[-1] == tokenizer.eos_token_id:
+                warnings.warn("The injected sample already contains the EOS token.")
+            dummy_sample = np.append(dummy_sample, tokenizer.eos_token_id)
+        
+        print(f"Dummy sample: {dummy_sample}")
+
         rng = rng or np.random.default_rng(1234)
 
         dataset = self.manager.WriteableMMapIndexedDataset
@@ -57,7 +72,7 @@ class EditHandler:
         print("---")
 
         # Inject
-        dataset.inject_example_into_corpus(
+        injection_details = dataset.inject_example_into_corpus(
             injection_loc=injection_loc,
             injection_data=dummy_sample,
             injection_type=injection_type,

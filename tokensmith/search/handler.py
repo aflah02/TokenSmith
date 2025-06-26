@@ -30,8 +30,10 @@ class SearchHandler:
         else:
             logging.info("Creating a new index.")
 
-            if not os.path.exists(self.index_save_path):
-                os.makedirs(self.index_save_path)
+            # if not os.path.exists(self.index_save_path):
+            #     os.makedirs(self.index_save_path)
+
+            print(bin_file_path, index_save_path, vocab, verbose)
 
             self.index = MemmapIndex.build(
                 self.bin_file_path,

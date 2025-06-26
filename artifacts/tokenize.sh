@@ -11,10 +11,12 @@ NEOX_DIR="/NS/llm-pretraining/work/afkhan/USC_Colab/gpt-neox"
 
 log_file="/NS/llm-pretraining/work/afkhan/tokensmith/artifacts/tokenize.log"
 
+# Using https://huggingface.co/EleutherAI/gpt-neox-20b/blob/main/tokenizer.json 
+
 python $NEOX_DIR/tools/datasets/preprocess_data.py \
                   --input /NS/llm-pretraining/work/afkhan/tokensmith/artifacts/data.jsonl \
                   --output-prefix /NS/llm-pretraining/work/afkhan/tokensmith/artifacts/data_tokenized \
-                  --vocab /NS/llm-pretraining/work/afkhan/USC_Colab/gpt-neox/Artifacts/olmo_tokenizer.json \
+                  --vocab /NS/llm-pretraining/work/afkhan/tokensmith/artifacts/tokenizer.json \
                   --dataset-impl mmap \
                   --tokenizer-type HFTokenizer \
                   --append-eod \
