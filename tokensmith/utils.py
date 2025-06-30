@@ -174,6 +174,21 @@ class WriteableMMapIndexedDataset:
         os.environ['MASTER_ADDR'] = orig_master_addr if orig_master_addr is not None else ''
         os.environ['MASTER_PORT'] = orig_master_port if orig_master_port is not None else ''
 
+    def get_document_by_id(self, doc_index: int) -> np.ndarray:
+        """
+        Reads a document from the MMapIndexedDataset by its index.
+        
+        Args:
+            doc_index (int): The index of the document to read.
+        
+        Returns:
+            np.ndarray: A numpy array containing the data read from the document.
+        """
+        pt_byte_offset, size = self.corpus_index[doc_index]
+        self.corpus_pointer.seek(pt_byte_offset)
+        return np.frombuffer(self.corpus_pointer.read(size * np.dtype(self.corpus_dtype).itemsize),
+                             dtype=np.dtype(self.corpus_dtype))
+
     def get_example_by_id(self, example_loc: int, return_doc_details: bool = False):
         """
         Reads an example from the MMapIndexedDataset by its location in a training run.
