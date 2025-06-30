@@ -24,7 +24,7 @@ def warn_once(logger: logging.Logger, msg: str):
     time.sleep(10)
 
 def generate_training_sample(tokenized_segments: List[List[int]], tokenizer: AutoTokenizer) -> str:
-    concat_training_sample = np.concat(tokenized_segments)
+    concat_training_sample = np.concatenate(tokenized_segments)
     return tokenizer.decode(
         concat_training_sample,
     )
