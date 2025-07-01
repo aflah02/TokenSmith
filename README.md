@@ -36,6 +36,10 @@ DatasetManager
 
 ### Installation
 
+Ensure you have a working GPT-NeoX environment using steps provided [here](https://github.com/EleutherAI/gpt-neox?tab=readme-ov-file#environment-and-dependencies)
+
+Within the same env run the following - 
+
 ```bash
 git clone https://github.com/aflah02/tokensmith.git
 cd tokensmith
