@@ -1,0 +1,93 @@
+site_name: TokenSmith Documentation
+site_description: A comprehensive toolkit for streamlining data editing, search, and inspection for large-scale language model training and interpretability.
+site_author: TokenSmith Team
+site_url: https://aflah02.github.io/tokensmith
+
+repo_name: aflah02/tokensmith
+repo_url: https://github.com/aflah02/tokensmith
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - API Reference:
+    - DatasetManager: reference/manager.md
+    - Search Handler: reference/search.md
+    - Inspect Handler: reference/inspect.md
+    - Sample Handler: reference/sample.md
+    - Edit Handler: reference/edit.md
+    - Export Handler: reference/export.md
+    - Utilities: reference/utils.md
+    - UI Components: reference/ui.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            docstring_options:
+              ignore_init_summary: true
+            merge_init_into_class: true
+            show_submodules: false
+            show_source: true
+            show_bases: true
+            show_inheritance_diagram: false
+            show_if_no_docstring: true
+            inherited_members: true
+            members_order: source
+            separate_signature: true
+            unwrap_annotated: true
+            filters: ["!^_"]
+            heading_level: 1
+            parameter_headings: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            signature_crossrefs: true
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/aflah02/tokensmith
