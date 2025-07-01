@@ -36,6 +36,9 @@ theme:
 
 nav:
   - Home: index.md
+  - Tutorials:
+    - Overview: tutorials/README.md
+    - Basic Setup: tutorials/01_basic_setup.ipynb
   - API Reference:
     - DatasetManager: reference/manager.md
     - Search Handler: reference/search.md
