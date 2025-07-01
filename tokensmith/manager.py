@@ -4,6 +4,7 @@ from tokensmith.inspect import InspectHandler
 from tokensmith.search import SearchHandler
 from tokensmith.sample import SampleHandler
 from tokensmith.export import ExportHandler
+from tokensmith.ingest import IngestHandler
 from tokensmith.utils import WriteableMMapIndexedDataset
 from typing import Optional
 
@@ -17,6 +18,8 @@ class DatasetManager:
 
         # SearchHandler will be initialized when setup_search is called
         self.search: Optional[SearchHandler] = None
+
+        self.ingest: IngestHandler = IngestHandler(self) 
 
     def setup_search(self, bin_file_path: str, search_index_save_path: str, vocab: int, verbose: bool = False, reuse: bool = True):
         """

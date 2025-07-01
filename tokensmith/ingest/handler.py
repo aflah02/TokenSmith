@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-class ImportHandler:
+class IngestHandler:
     def __init__(self, manager: 'DatasetManager'):
         self.manager = manager
 
-    def import_from_jsonl(
+    def ingest_from_jsonl(
         self,
         input_jsonl_path: str,
         output_prefix: str,
@@ -28,7 +28,7 @@ class ImportHandler:
         log_file: Optional[str] = None
     ) -> Dict[str, str]:
         """
-        Import and tokenize a JSONL file using GPT-NeoX preprocessing pipeline.
+        Ingest and tokenize a JSONL file using GPT-NeoX preprocessing pipeline.
         
         Parameters:
             input_jsonl_path (str): Path to the input JSONL file.
@@ -139,7 +139,7 @@ class ImportHandler:
                 logger.error(f"Tokenization log:\n{log_content}")
             raise
 
-    def import_from_csv(
+    def ingest_from_csv(
         self,
         input_csv_path: str,
         text_column: str,
@@ -205,8 +205,8 @@ class ImportHandler:
             
             logger.info(f"Converted {total_rows} rows from CSV to JSONL")
             
-            # Now use the existing import_from_jsonl method
-            result = self.import_from_jsonl(
+            # Now use the existing ingest_from_jsonl method
+            result = self.ingest_from_jsonl(
                 input_jsonl_path=temp_jsonl_path,
                 output_prefix=output_prefix,
                 tokenizer_path=tokenizer_path,
