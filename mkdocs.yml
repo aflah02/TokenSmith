@@ -48,6 +48,7 @@ nav:
     - Sample Handler: reference/sample.md
     - Edit Handler: reference/edit.md
     - Export Handler: reference/export.md
+    - Ingest Handler: reference/ingest.md
     - Utilities: reference/utils.md
     - UI Components: reference/ui.md
 
