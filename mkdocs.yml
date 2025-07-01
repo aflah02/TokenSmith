@@ -39,7 +39,7 @@ nav:
   - Tutorials:
     - Overview: tutorials/README.md
     - Basic Setup: tutorials/01_basic_setup.ipynb
-    - Dataset Inspection: tutorials/02_inspect_samples.md
+    - Dataset Inspection: tutorials/02_inspect_samples.ipynb
   - API Reference:
     - DatasetManager: reference/manager.md
     - Search Handler: reference/search.md
