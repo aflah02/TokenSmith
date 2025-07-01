@@ -19,7 +19,7 @@ class IngestHandler:
         self,
         input_jsonl_path: str,
         output_prefix: str,
-        tokenizer_path: str,
+        vocab_path: str,
         neox_dir: str,
         workers: int,
         append_eod: bool,
@@ -33,11 +33,11 @@ class IngestHandler:
         Parameters:
             input_jsonl_path (str): Path to the input JSONL file.
             output_prefix (str): Prefix for the output tokenized files.
-            tokenizer_path (str): Path to the tokenizer file (e.g., tokenizer.json).
+            vocab_path (str): Path to the vocab file.
             neox_dir (str): Path to the GPT-NeoX directory.
             workers (int): Number of workers for tokenization.
             append_eod (bool): Whether to append end-of-document tokens.
-            dataset_impl (str): Dataset implementation type ("mmap").
+            dataset_impl (str): Dataset implementation type.
             tokenizer_type (str): Type of tokenizer to use.
             log_file (Optional[str]): Path to save tokenization logs.
             
@@ -52,8 +52,8 @@ class IngestHandler:
         if not os.path.exists(input_jsonl_path):
             raise FileNotFoundError(f"Input JSONL file not found: {input_jsonl_path}")
         
-        if not os.path.exists(tokenizer_path):
-            raise FileNotFoundError(f"Tokenizer file not found: {tokenizer_path}")
+        if not os.path.exists(vocab_path):
+            raise FileNotFoundError(f"Tokenizer file not found: {vocab_path}")
             
         if not os.path.exists(neox_dir):
             raise FileNotFoundError(f"GPT-NeoX directory not found: {neox_dir}")
@@ -73,14 +73,14 @@ class IngestHandler:
 
         logger.info(f"Starting tokenization of {input_jsonl_path}")
         logger.info(f"Output prefix: {output_prefix}")
-        logger.info(f"Using tokenizer: {tokenizer_path}")
+        logger.info(f"Using vocab file: {vocab_path}")
 
         # Build the command exactly like tokenize.sh
         cmd = [
             "python", preprocess_script,
             "--input", input_jsonl_path,
             "--output-prefix", output_prefix,
-            "--vocab", tokenizer_path,
+            "--vocab", vocab_path,
             "--dataset-impl", dataset_impl,
             "--tokenizer-type", tokenizer_type,
             "--workers", str(workers)
@@ -116,8 +116,8 @@ class IngestHandler:
             
             # Verify output files were created
             expected_files = {
-                "bin_file": f"{output_prefix}.bin",
-                "idx_file": f"{output_prefix}.idx",
+                "bin_file": f"{output_prefix}_text_document.bin",
+                "idx_file": f"{output_prefix}_text_document.idx",
                 "log_file": log_file
             }
             
@@ -144,7 +144,7 @@ class IngestHandler:
         input_csv_path: str,
         text_column: str,
         output_prefix: str,
-        tokenizer_path: str,
+        vocab_path: str,
         neox_dir: str,
         workers: int,
         append_eod: bool,
@@ -161,11 +161,11 @@ class IngestHandler:
             input_csv_path (str): Path to the input CSV file.
             text_column (str): Name of the column containing text data.
             output_prefix (str): Prefix for the output tokenized files.
-            tokenizer_path (str): Path to the tokenizer file.
+            vocab_path (str): Path to the vocab file.
             neox_dir (str): Path to the GPT-NeoX directory.
             workers (int): Number of workers for tokenization.
             append_eod (bool): Whether to append end-of-document tokens.
-            dataset_impl (str): Dataset implementation type ("mmap").
+            dataset_impl (str): Dataset implementation type.
             tokenizer_type (str): Type of tokenizer to use.
             log_file (Optional[str]): Path to save tokenization logs.
             chunk_size (int): Number of rows to process at once for memory efficiency.
@@ -209,7 +209,7 @@ class IngestHandler:
             result = self.ingest_from_jsonl(
                 input_jsonl_path=temp_jsonl_path,
                 output_prefix=output_prefix,
-                tokenizer_path=tokenizer_path,
+                vocab_path=vocab_path,
                 neox_dir=neox_dir,
                 workers=workers,
                 append_eod=append_eod,

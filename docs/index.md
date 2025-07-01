@@ -86,6 +86,7 @@ This documentation contains comprehensive API reference for all TokenSmith compo
 - **[Sample Handler](reference/sample.md)**: Flexible data sampling strategies
 - **[Edit Handler](reference/edit.md)**: Dataset modification and injection
 - **[Export Handler](reference/export.md)**: Multi-format data export
+- **[Ingest Handler](reference/ingest.md)**: Multi-format data ingestion
 - **[Utilities](reference/utils.md)**: Utility functions and classes
 - **[UI Components](reference/ui.md)**: Interactive Streamlit interface
 
