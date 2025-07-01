@@ -191,19 +191,12 @@ manager.export.export_entire_dataset(
 TokenSmith includes a Streamlit-based web interface for visual dataset exploration:
 
 ```bash
-# Launch the web UI
+# Launch the web UI using the convenience script
 cd tokensmith/ui
-streamlit run app.py -- \
-    --dataset-prefix /path/to/dataset \
-    --batch-info-prefix /path/to/batch_info \
-    --train-iters 1000 \
-    --train-batch-size 16 \
-    --train-seq-len 1024 \
-    --seed 42 \
-    --bin-file-path /path/to/dataset.bin \
-    --search-index-path /path/to/index \
-    --vocab 65536
+./run_ui.sh
 ```
+
+Modify `run_ui.sh` to change modes and args
 
 The web interface provides:
 - **Search Page**: Interactive token sequence search with visualization
