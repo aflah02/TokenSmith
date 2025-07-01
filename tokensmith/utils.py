@@ -66,6 +66,9 @@ class WriteableMMapIndexedDataset:
         self.corpus_pointer = open(f"{dataset_prefix}.bin", 'r+b')
         self.corpus_index = MMapIndexedDataset.Index(f"{dataset_prefix}.idx")
         self.corpus_dtype = self.corpus_index.dtype
+
+        self.num_samples = train_batch_size * train_iters
+        self.num_documents = len(self.corpus_index.sizes)
         
         batch_info_save_path = f"{batch_info_save_prefix}_train_indexmap_{train_iters*train_batch_size}ns_{train_seq_len}sl_{seed}s_{packing_impl}pi"
         if allow_chopped:
@@ -459,122 +462,3 @@ def perturb_dataset(raw_dataset: str,
 
     logger.debug(f"> Window check used {check_used} times.")
     writeable_dataset.close()
-
-
-# def parse_args():
-#     parser = argparse.ArgumentParser()
-
-#     parser.add_argument(
-#         '--exp_name',
-#         required=True,
-#         help="The name of the experiment that will be run. For logging purposes only."
-#     )
-
-#     parser.add_argument(
-#         '--raw_dataset',
-#         required=True,
-#         help="the path to the tokenized base dataset"
-#     )
-
-#     parser.add_argument(
-#         '--batch_info',
-#         required=True,
-#         help="the path to the shuffled and sampled batch data"
-#     )
-
-#     parser.add_argument(
-#         '--perturbation_dir',
-#         required=True,
-#         help="the path to the perturbation data"
-#     )
-
-#     parser.add_argument(
-#         '--perturbation_include_filters',
-#         default=None,
-#         nargs='+',
-#         help="the list of filename filters (substrings) to include in the perturbation process"
-#     )
-
-#     parser.add_argument(
-#         '--max_train_samples',
-#         required=True,
-#         type=int,
-#         help="Maximum number of samples that will be used for model training"
-#     )
-
-#     parser.add_argument(
-#         '--max_train_batches',
-#         required=True,
-#         type=int,
-#         help="Maximum number of batches that will be used for model training"
-#     )
-
-#     parser.add_argument(
-#         '--train_seq_len',
-#         type=int,
-#         required=True,
-#         # default=1024,
-#         help="Sample length of training sequences"
-#     )
-
-#     parser.add_argument(
-#         '--add_extra_token_to_seq',
-#         type=int,
-#         default=1,
-#         help="Number of extra tokens to add to the training sequence. This is used to account for extra tokens for causal LM pre-training."            
-#     )
-    
-#     parser.add_argument(
-#         '--injection_type',
-#         choices=["seq_start", "seq_shuffle"],
-#         default="seq_start",
-#         help="Whether to inject perturbation data at the "
-#              "(1) overwrite start of a randomly sampled sequence, "
-#              "(2) shuffled into a training sequence (insert into and resize old data instead of overwriting any data)"
-#     )
-
-#     # parser.add_argument(
-#     #     '--eos_tok_id',
-#     #     type=int,
-#     #     default=50279,
-#     #     help="Token ID of <endoftext>"
-#     # )
-
-#     parser.add_argument(
-#         '--loc_sampler',
-#         choices=["seq", "batch"],
-#         default="seq",
-#         help="Whether to randomly sample a sequence or batch for injection"
-#     )
-
-#     parser.add_argument(
-#         '--seed',
-#         required=True,
-#         type=int,
-#         help="the seed to use"
-#     )
-
-#     parser.add_argument(
-#         '--dry_run',
-#         action='store_true',
-#         help="Only simulate addition of the perturbation data"
-#     )
-
-#     return parser.parse_args()
-
-# if __name__=="__main__":
-#     args_ = parse_args()
-#     logger.info(f"> Args: {vars(args_)}")
-#     perturb_dataset(raw_dataset=args_.raw_dataset,
-#                     batch_info=args_.batch_info,
-#                     perturbation_dir=args_.perturbation_dir,
-#                     max_train_samples=args_.max_train_samples,
-#                     max_train_batches=args_.max_train_batches,
-#                     train_seq_len=args_.train_seq_len,
-#                     add_extra_token_to_seq=args_.add_extra_token_to_seq,
-#                     injection_type=args_.injection_type,
-#                     loc_sampler=args_.loc_sampler,
-#                     seed=args_.seed,
-#                     dry_run=args_.dry_run,
-#                     perturbation_include_filters=args_.perturbation_include_filters
-#                     )

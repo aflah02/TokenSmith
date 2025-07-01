@@ -285,30 +285,7 @@ class EditHandler:
             return False
         
         try:
-            total_samples = len(self.manager.WriteableMMapIndexedDataset.batch_info.shuffle_idx)
-            return injection_loc < total_samples
+            return injection_loc < self.WriteableMMapIndexedDataset.num_samples
         except Exception:
             return False
-
-    def get_dataset_info(self) -> Dict[str, Any]:
-        """
-        Get basic information about the dataset for editing operations.
-
-        Returns:
-            Dict[str, Any]: Dataset information including total samples, etc.
-        """
-        try:
-            batch_info = self.manager.WriteableMMapIndexedDataset.batch_info
-            total_samples = len(batch_info.shuffle_idx)
-            return {
-                "total_samples": total_samples,
-                "valid_injection_range": f"0 to {total_samples - 1}",
-                "dataset_available": True
-            }
-        except Exception as e:
-            return {
-                "error": f"Failed to get dataset info: {e}",
-                "dataset_available": False
-            }
-
 
