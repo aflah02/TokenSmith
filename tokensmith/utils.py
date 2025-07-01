@@ -126,7 +126,7 @@ class WriteableMMapIndexedDataset:
             train_seq_len,
             seed,
             packing_impl,
-            use_shared_fs=True,
+            # use_shared_fs=True,
             allow_chopped=allow_chopped,
         )
 
