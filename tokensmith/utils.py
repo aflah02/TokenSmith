@@ -7,7 +7,7 @@ from tqdm import trange
 import uuid
 from typing import Optional, List, Dict, Any
 from megatron.data.indexed_dataset import MMapIndexedDataset
-from megatron_dependencies import get_train_valid_test_split_, build_index_mappings
+from .megatron_dependencies import get_train_valid_test_split_, build_index_mappings
 from transformers import AutoTokenizer
 import torch
 import os

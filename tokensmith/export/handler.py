@@ -136,7 +136,7 @@ class ExportHandler:
             raise ValueError("tokenizer must be provided if return_detokenized is True")
 
         # Get total number of samples
-        total_samples = len(self.manager.WriteableMMapIndexedDataset)
+        total_samples = len(self.manager.WriteableMMapIndexedDataset.batch_info.shuffle_idx)
 
         # Create output directory if it doesn't exist
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -331,9 +331,9 @@ class ExportHandler:
             raise ValueError("start_idx must be less than end_idx")
 
         # Get total number of samples to validate range
-        total_samples = len(self.manager.WriteableMMapIndexedDataset)
-        if end_idx > total_samples:
-            raise ValueError(f"end_idx ({end_idx}) exceeds dataset size ({total_samples})")
+        # total_samples = len(self.manager.WriteableMMapIndexedDataset.batch_info.shuffle_idx)
+        # if end_idx > total_samples:
+        #     raise ValueError(f"end_idx ({end_idx}) exceeds dataset size ({total_samples})")
 
         # Create output directory if it doesn't exist
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
