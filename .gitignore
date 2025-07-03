@@ -3,5 +3,4 @@ __pycache__/
 *.idx
 *.bin
 *benchmarking/benchmarking_data
-artifacts/data_tokenized_text_document.bin
 shard_*.jsonl*
