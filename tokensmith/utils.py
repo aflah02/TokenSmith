@@ -129,11 +129,10 @@ class WriteableMMapIndexedDataset:
             train_seq_len,
             seed,
             packing_impl,
-            # use_shared_fs=True,
             allow_chopped=allow_chopped,
         )
 
-    def get_document_by_id(self, doc_index: int) -> np.ndarray:
+    def get_corpus_document_by_id(self, doc_index: int) -> np.ndarray:
         """
         Reads a document from the MMapIndexedDataset by its index.
         
@@ -148,6 +147,22 @@ class WriteableMMapIndexedDataset:
         return np.frombuffer(self.corpus_pointer.read(size * np.dtype(self.corpus_dtype).itemsize),
                              dtype=np.dtype(self.corpus_dtype))
 
+    def get_train_document_by_id(self, doc_index: int) -> np.ndarray:
+        """
+        Reads a document from the MMapIndexedDataset by its index.
+        
+        Args:
+            doc_index (int): The index of the document to read.
+        
+        Returns:
+            np.ndarray: A numpy array containing the data read from the document.
+        """
+        corpus_doc_index = self.batch_info.get_doc_index_in_corpus(doc_index)
+        pt_byte_offset, size = self.corpus_index[corpus_doc_index]
+        self.corpus_pointer.seek(pt_byte_offset)
+        return np.frombuffer(self.corpus_pointer.read(size * np.dtype(self.corpus_dtype).itemsize),
+                             dtype=np.dtype(self.corpus_dtype))
+    
     def get_example_by_id(self, example_loc: int, return_doc_details: bool = False):
         """
         Reads an example from the MMapIndexedDataset by its location in a training run.
