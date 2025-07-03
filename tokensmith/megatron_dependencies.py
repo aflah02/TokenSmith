@@ -85,6 +85,14 @@ def build_index_mappings(
     tokens_per_epoch = _num_tokens(documents, sizes)
     if not num_epochs:
         num_epochs = _num_epochs(tokens_per_epoch, seq_length, num_samples)
+    
+    if num_epochs > 1:
+        logger.warning(
+            " > WARNING: num_epochs is set to {}. Be warned that this may overwrite the same document multiple times across epochs.".format(
+                num_epochs
+            )
+        )
+
     # rng state
     np_rng = np.random.RandomState(seed=seed)
 
