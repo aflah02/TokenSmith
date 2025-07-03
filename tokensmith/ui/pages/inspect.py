@@ -54,7 +54,7 @@ if selected_function == "get_sequence":
                     
                     st.subheader("Sequence Data")
                     if return_detokenized:
-                        st.text_area("Detokenized Text:", value=sequence_data, height=200)
+                        st.text_area("Detokenized Text:", value=sequence_data, height=200, disabled=True)
                     else:
                         # Display tokens as arrays
                         st.write("Token Arrays:")
@@ -67,7 +67,7 @@ if selected_function == "get_sequence":
                 else:
                     st.subheader("Sequence Data")
                     if return_detokenized:
-                        st.text_area("Detokenized Text:", value=result, height=200)
+                        st.text_area("Detokenized Text:", value=result, height=200, disabled=True)
                     else:
                         # Display tokens as arrays
                         st.write("Token Arrays:")
@@ -103,7 +103,7 @@ elif selected_function == "get_batch":
                                 
                                 st.write("**Sample Data:**")
                                 if return_detokenized:
-                                    st.text_area(f"Detokenized Text {i+1}:", value=sample_data, height=100, key=f"sample_{i}")
+                                    st.text_area(f"Detokenized Text {i+1}:", value=sample_data, height=100, key=f"sample_{i}", disabled=True)
                                 else:
                                     # Display tokens as arrays
                                     for j, arr in enumerate(sample_data):
@@ -115,7 +115,7 @@ elif selected_function == "get_batch":
                                 st.error(f"Unexpected result format for sample {i+1}")
                         else:
                             if return_detokenized:
-                                st.text_area(f"Detokenized Text {i+1}:", value=sample_result, height=100, key=f"sample_{i}")
+                                st.text_area(f"Detokenized Text {i+1}:", value=sample_result, height=100, key=f"sample_{i}", disabled=True)
                             else:
                                 # Display tokens as arrays
                                 for j, arr in enumerate(sample_result):

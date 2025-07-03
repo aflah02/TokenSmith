@@ -20,8 +20,8 @@ EXTRA_TOKENS=1
 SEARCH_VERBOSE=false
 REUSE_INDEX=false
 ALLOW_CHOPPED=false
-# MODE="both"
-MODE="inspect"
+MODE="both"
+# MODE="inspect"
 
 # Help function
 show_help() {
@@ -230,6 +230,9 @@ echo "Command: $STREAMLIT_CMD"
 echo ""
 echo "The UI will be available at: http://localhost:$PORT"
 echo ""
+
+# Set PYTHONPATH to include gpt-neox
+export PYTHONPATH="/NS/llm-pretraining/work/afkhan/USC_Colab/gpt-neox:$PYTHONPATH"
 
 # Change to the UI directory and run
 cd "$(dirname "$0")"

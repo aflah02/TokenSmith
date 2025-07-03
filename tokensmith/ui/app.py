@@ -35,7 +35,7 @@ def parse_args():
     
     # Mode argument
     parser.add_argument("--mode", type=str, choices=["search", "inspect", "both"], default="both", 
-                       help="UI mode: 'search' for search only, 'inspect' for inspect only, 'both' for all features")
+                       help="UI mode: 'search' for search only, 'inspect' for inspect and view documents, 'both' for all features")
     
     return parser.parse_args()
 
@@ -128,6 +128,10 @@ mode = getattr(st.session_state.args, 'mode', 'both')
 if mode in ["inspect", "both"] and st.session_state.dataset_manager.inspect is not None:
     inspect_page = st.Page("pages/inspect.py", title="Inspect Dataset", icon=":material/eye_tracking:")
     pages.append(inspect_page)
+    
+    # Add view documents page when inspect is available
+    view_documents_page = st.Page("pages/view_documents.py", title="View Documents", icon=":material/description:")
+    pages.append(view_documents_page)
 
 if mode in ["search", "both"] and st.session_state.dataset_manager.search is not None:
     search_page = st.Page("pages/search.py", title="Search Dataset", icon=":material/find_in_page:")
@@ -138,7 +142,7 @@ if not pages:
     st.error("❌ No functionality initialized. Please provide the required CLI arguments for your desired mode.")
     st.write("Available modes:")
     st.write("- **search**: Requires `--bin-file-path`, `--search-index-path`, and `--vocab`")
-    st.write("- **inspect**: Requires `--dataset-prefix` and `--batch-info-prefix`")
+    st.write("- **inspect**: Requires `--dataset-prefix` and `--batch-info-prefix` (includes Inspect Dataset and View Documents)")
     st.write("- **both**: Requires arguments for both modes")
     st.stop()
 
