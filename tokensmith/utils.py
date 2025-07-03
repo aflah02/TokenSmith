@@ -350,8 +350,20 @@ class WriteableMMapIndexedDataset:
             assert len(injection_data) == self.train_seq_len + self.add_extra_token_to_seq
         else:
             # The injected data will overwrite the existing training sequence
-            # Overwtiting will happen at the start of the sequence
-            pass
+            # Overwriting will happen at the start of the sequence
+            if dry_run:
+                # Generate the training sequence for visualization purposes only
+                # Step 1: Read in the orig training sequence
+                pt_train_seqs = self.get_example_by_id(injection_loc)
+                assert len(np.concatenate(pt_train_seqs)) == self.train_seq_len + self.add_extra_token_to_seq
+                # Step 2: Create the full sequence
+                concat_pt_seq = np.concatenate(pt_train_seqs)
+                # Step 3: Over-write the start of the sequence with the injected data
+                concat_pt_seq[:len(injection_data)] = injection_data
+
+                # Step 5: Replace perturbation object with the full sequence and 
+                # inject it into the tokenized corpus
+                injection_details['injection_data'] = concat_pt_seq
 
         injection_doc_details = self.write_example_into_corpus(
             injection_loc=injection_loc,
