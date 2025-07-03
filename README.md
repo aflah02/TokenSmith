@@ -15,7 +15,8 @@ TokenSmith is a powerful Python package designed to simplify dataset management 
 - **📊 Dataset Inspection**: Examine samples, batches, and document metadata  
 - **🎯 Smart Sampling**: Flexible sampling with policy-based selection
 - **✏️ Dataset Editing**: Inject and modify training samples with precision
-- **📤 Export Utilities**: Export data in multiple formats (JSONL, CSV)
+- **📤 Export Utilities**: Export data in multiple formats
+- **📩 Ingest Utilities**: Ingest data from multiple formats
 - **🖥️ Interactive UI**: Streamlit-based web interface for visual exploration
 - **⚡ Memory Efficient**: Chunked processing for large datasets
 
@@ -30,6 +31,7 @@ DatasetManager
 ├── SampleHandler    # Flexible data sampling strategies
 ├── EditHandler      # Dataset modification and injection
 └── ExportHandler    # Multi-format data export
+└── IngestHandler    # Multi-format data ingestion
 ```
 
 ## 🚀 Quick Start
@@ -206,20 +208,6 @@ The web interface provides:
 - **Search Page**: Interactive token sequence search with visualization
 - **Inspect Page**: Browse and examine dataset samples and batches
 
-## 📁 Output Formats
-
-### JSONL Format
-```json
-{"index": 0, "content": "This is detokenized text.", "doc_details": {"doc_index_f": 0, "doc_index_l": 1, "offset_f": 0, "offset_l": 2048}}
-```
-
-### CSV Format
-```csv
-index,content
-0,"This is detokenized text."
-1,"Another text sample."
-```
-
 ## 🗂️ Project Structure
 
 ```
@@ -235,6 +223,8 @@ tokensmith/
 ├── sample/                 # Sampling strategies
 │   └── handler.py
 ├── export/                 # Data export utilities
+│   └── handler.py
+├── ingest/                 # Data ingestion utilities
 │   └── handler.py
 └── ui/                     # Streamlit web interface
     ├── app.py
@@ -307,20 +297,14 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache 2.0 License - see [this](https://www.apache.org/licenses/LICENSE-2.0) for further details.
 
 ## 🙏 Acknowledgments
 
 - Built on top of the [tokengrams](https://github.com/EleutherAI/tokengrams) library for efficient n-gram indexing
-- Inspired by the need for better dataset management tools in large language model training
 - Uses Megatron-style dataset indexing for compatibility with existing training pipelines
 
 ## 📞 Support
 
-- 📧 **Email**: your.email@example.com
 - 🐛 **Issues**: [GitHub Issues](https://github.com/aflah02/tokensmith/issues)
 - 📖 **Documentation**: [https://aflah02.github.io/tokensmith](https://aflah02.github.io/tokensmith)
-
----
-
-**TokenSmith** - Making dataset management for LLM training as smooth as a skilled blacksmith forging tools! 🔨✨
