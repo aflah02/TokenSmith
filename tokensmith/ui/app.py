@@ -16,7 +16,7 @@ def parse_args():
     parser.add_argument("--search-index-path", type=str, help="Path to save/load the search index")
     parser.add_argument("--vocab", type=int, choices=[2**16, 2**32], help="Vocabulary size (65536 or 4294967296)")
     parser.add_argument("--search-verbose", action="store_true", help="Enable verbose output for search index building")
-    parser.add_argument("--reuse-index", action="store_true", default=True, help="Reuse existing search index if available")
+    parser.add_argument("--reuse-index", action="store_true", help="Reuse existing search index if available")
     
     # Dataset arguments
     parser.add_argument("--dataset-prefix", type=str, help="Prefix for the dataset files")
@@ -27,7 +27,7 @@ def parse_args():
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
     parser.add_argument("--splits", type=str, default="969,30,1", help="Train/val/test splits")
     parser.add_argument("--packing-impl", type=str, default="packed", choices=["packed", "pack_until_overflow", "unpacked"], help="Packing implementation")
-    parser.add_argument("--allow-chopped", action="store_true", default=True, help="Allow chopped samples")
+    parser.add_argument("--allow-chopped", action="store_true", help="Allow chopped samples")
     parser.add_argument("--extra-tokens", type=int, default=1, help="Extra tokens to add to sequence")
     
     # Tokenizer arguments
@@ -79,12 +79,13 @@ def init_session_state():
                 if not st.session_state.search_setup_done:
                     st.session_state.search_setup_done = True
                     # Initialize search handler
+                    print("Reuse Index:", getattr(st.session_state.args, 'reuse_index', False))
                     st.session_state.dataset_manager.setup_search(
                         bin_file_path=st.session_state.args.bin_file_path,
                         search_index_save_path=st.session_state.args.search_index_path,
                         vocab=st.session_state.args.vocab,
                         verbose=getattr(st.session_state.args, 'search_verbose', False),
-                        reuse=getattr(st.session_state.args, 'reuse_index', True)
+                        reuse=getattr(st.session_state.args, 'reuse_index', False)
                     )
                 else:
                     # Already set up, no need to reinitialize

@@ -44,6 +44,7 @@ class DatasetManager:
             None
         """
         if self.search is None:
+            
             self.search = SearchHandler(
                 bin_file_path=bin_file_path,
                 index_save_path=search_index_save_path,

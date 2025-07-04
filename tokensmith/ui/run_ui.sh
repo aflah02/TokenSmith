@@ -5,7 +5,7 @@
 
 # Default values (update these based on your setup)
 BIN_FILE_PATH="../../artifacts/data_tokenized_text_document.bin"
-SEARCH_INDEX_PATH="../../artifacts/search_index_text_document.idx"
+SEARCH_INDEX_PATH="../../artifacts/search_index_text_document_2.idx"
 VOCAB=65536  # 2^16
 DATASET_PREFIX="../../artifacts/data_tokenized_text_document"
 BATCH_INFO_PREFIX="../../artifacts/batch_info"
