@@ -246,10 +246,12 @@ Complete API documentation with automatically generated docstrings is available 
 
 Comprehensive tutorials and examples are available in the `tutorials/` directory:
 
-- **[Basic Setup](tutorials/01_basic_setup.ipynb)** - Getting started guide
-- **[Dataset Inspection](tutorials/)** - Examining your data
-- **[Sampling Methods](tutorials/)** - Different ways to sample data
-- **[Policy-based Sampling](tutorials/)** - Advanced sampling strategies
+- **[Basic Setup Tutorial](tutorials/01_basic_setup.ipynb)** 
+- **[Dataset Inspection Tutorial](tutorials/02_inspect_samples.ipynb)** 
+- **[Dataset Sampling Tutorial](tutorials/03_sampling_methods.ipynb)**
+- **[Dataset Editing Tutorial](tutorials/04_dataset_editing_methods.ipynb)**
+- **[Dataset Searching Tutorial](tutorials/05_search_functionality.ipynb)**
+
 
 ### Building Documentation Locally
 
