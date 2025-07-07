@@ -6,55 +6,17 @@ This directory contains step-by-step tutorials for using the TokenSmith library 
 
 The tutorials are designed to be followed in order, building from basic concepts to advanced workflows:
 
-### 📚 Basic Tutorials
-1. **[01_basic_setup.ipynb](01_basic_setup.ipynb)** - Setup and initialization
-   - Installing dependencies
-   - Setting up the DatasetManager
-   - Loading tokenizers
-   - Basic configuration
+### 📚 Tutorials
 
-2. **[02_inspect_samples.ipynb](02_inspect_samples.ipynb)** - Dataset inspection
-   - Inspecting individual samples
-   - Batch inspection
-   - Understanding document details
-   - Viewing tokenized vs detokenized content
+1. **[01_basic_setup.ipynb](01_basic_setup.ipynb)** 
 
-3. **[03_sampling_methods.ipynb](03_sampling_methods.ipynb)** - Basic sampling
-   - Sampling by indices
-   - Batch sampling by IDs
-   - Understanding return formats
-   - Working with document metadata
+2. **[02_inspect_samples.ipynb](02_inspect_samples.ipynb)** 
 
-### 🎯 Advanced Tutorials
-4. **[04_policy_sampling.ipynb](04_policy_sampling.ipynb)** - Policy-based sampling
-   - Creating custom sampling policies
-   - Random, sequential, and sparse sampling
-   - Batch policy sampling
-   - Lambda functions as policies
+3. **[03_sampling_methods.ipynb](03_sampling_methods.ipynb)** 
 
-5. **[05_search_functionality.ipynb](05_search_functionality.ipynb)** - Search and filtering
-   - Setting up search indices
-   - Token-based search
-   - Counting occurrences
-   - Advanced search patterns
+4. **[04_dataset_editing_methods.ipynb](04_dataset_editing_methods.ipynb)** 
 
-6. **[06_editing_injection.ipynb](06_editing_injection.ipynb)** - Data editing and injection
-   - Injecting custom text
-   - Different injection types
-   - Preview vs actual injection
-   - Working with random number generators
-
-7. **[07_export_workflows.ipynb](07_export_workflows.ipynb)** - Export functionality
-   - Exporting samples and batches
-   - Different export formats
-   - Batch export workflows
-   - Integration with training pipelines
-
-8. **[08_advanced_workflows.ipynb](08_advanced_workflows.ipynb)** - Complex use cases
-   - Combining multiple operations
-   - Research workflows
-   - Performance optimization
-   - Custom integrations
+5. **[05_search_functionality.ipynb](05_search_functionality.ipynb)** 
 
 ## Getting Started
 
