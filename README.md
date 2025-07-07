@@ -207,6 +207,7 @@ Modify `run_ui.sh` to change modes and args
 The web interface provides:
 - **Search Page**: Interactive token sequence search with visualization
 - **Inspect Page**: Browse and examine dataset samples and batches
+- **View Documents Page**: View individual documents in training or corpus order
 
 ## 🗂️ Project Structure
 
@@ -231,6 +232,7 @@ tokensmith/
     └── pages/
         ├── search.py
         └── inspect.py
+        └── view_documents.py
 ```
 
 ## 📖 Documentation
@@ -264,26 +266,6 @@ mkdocs serve
 ```
 
 The documentation will be available at `http://127.0.0.1:8000`
-
-## 🔧 Configuration
-
-### Dataset Setup Parameters
-
-- `dataset_prefix`: Path prefix for dataset files (.bin/.idx)
-- `batch_info_save_prefix`: Path prefix for batch index files
-- `train_iters`: Number of training iterations to simulate
-- `train_batch_size`: Batch size for training simulation
-- `train_seq_len`: Sequence length for training
-- `seed`: Random seed for reproducibility
-- `splits_string`: Train/val/test split ratios (default: "969,30,1")
-- `packing_impl`: Sequence packing method ("packed", "pack_until_overflow", "unpacked")
-
-### Search Setup Parameters
-
-- `bin_file_path`: Path to binary dataset file
-- `search_index_save_path`: Path for search index storage
-- `vocab`: Vocabulary size (2^16 or 2^32)
-- `reuse`: Whether to reuse existing index files
 
 ## 🤝 Contributing
 
