@@ -291,4 +291,4 @@ This project is licensed under the Apache 2.0 License - see [this](https://www.a
 ## 📞 Support
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/aflah02/tokensmith/issues)
-- 📖 **Documentation**: [https://aflah02.github.io/tokensmith](https://aflah02.github.io/tokensmith)
+- 📖 **Documentation**: [https://aflah02.github.io/TokenSmith](https://aflah02.github.io/TokenSmith)
