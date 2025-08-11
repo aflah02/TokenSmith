@@ -292,3 +292,19 @@ This project is licensed under the Apache 2.0 License - see [this](https://www.a
 
 - 🐛 **Issues**: [GitHub Issues](https://github.com/aflah02/tokensmith/issues)
 - 📖 **Documentation**: [https://aflah02.github.io/TokenSmith](https://aflah02.github.io/TokenSmith)
+
+## ℹ️ Citation
+
+If you find this library useful or build upon it, please remember to cite our work -
+
+```
+@misc{khan2025tokensmithstreamliningdataediting,
+      title={TokenSmith: Streamlining Data Editing, Search, and Inspection for Large-Scale Language Model Training and Interpretability}, 
+      author={Mohammad Aflah Khan and Ameya Godbole and Johnny Tian-Zheng Wei and Ryan Wang and James Flemings and Krishna Gummadi and Willie Neiswanger and Robin Jia},
+      year={2025},
+      eprint={2507.19419},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2507.19419}, 
+}
+```
