@@ -240,17 +240,17 @@ tokensmith/
 ### API Reference
 
 Complete API documentation with automatically generated docstrings is available at:
-**[https://aflah02.github.io/tokensmith](https://aflah02.github.io/tokensmith)**
+**[https://aflah02.github.io/TokenSmith](https://aflah02.github.io/TokenSmith)**
 
 ### Tutorials
 
 Comprehensive tutorials and examples are available in the `tutorials/` directory:
 
-- **[Basic Setup Tutorial](tutorials/01_basic_setup.ipynb)** 
-- **[Dataset Inspection Tutorial](tutorials/02_inspect_samples.ipynb)** 
-- **[Dataset Sampling Tutorial](tutorials/03_sampling_methods.ipynb)**
-- **[Dataset Editing Tutorial](tutorials/04_dataset_editing_methods.ipynb)**
-- **[Dataset Searching Tutorial](tutorials/05_search_functionality.ipynb)**
+- **[Basic Setup Tutorial](docs/tutorials/01_basic_setup.ipynb)** 
+- **[Dataset Inspection Tutorial](docs/tutorials/02_inspect_samples.ipynb)** 
+- **[Dataset Sampling Tutorial](docs/tutorials/03_sampling_methods.ipynb)**
+- **[Dataset Editing Tutorial](docs/tutorials/04_dataset_editing_methods.ipynb)**
+- **[Dataset Searching Tutorial](docs/tutorials/05_search_functionality.ipynb)**
 
 
 ### Building Documentation Locally
