@@ -20,7 +20,6 @@ setup(
         'numpy>=1.21.0',
         'pandas>=1.3.0', 
         'tqdm>=4.62.0',
-        'transformers>=4.20.0',
     ],
     extras_require={
         'ui': [

@@ -6,10 +6,17 @@ import os
 from tqdm import trange
 import uuid
 from typing import Optional, List, Dict, Any
-from transformers import AutoTokenizer
 import os
 from functools import lru_cache
 import time
+
+# Optional transformers imports - will be imported when needed
+try:
+    from transformers import AutoTokenizer
+    TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    AutoTokenizer = None
+    TRANSFORMERS_AVAILABLE = False
 
 # Optional megatron imports - will be imported when needed
 try:
@@ -28,7 +35,22 @@ def warn_once(logger: logging.Logger, msg: str):
     logger.warning(msg)
     time.sleep(10)
 
-def generate_training_sample(tokenized_segments: List[List[int]], tokenizer: AutoTokenizer) -> str:
+def generate_training_sample(tokenized_segments: List[List[int]], tokenizer) -> str:
+    """Generate training sample from tokenized segments using a tokenizer.
+    
+    Args:
+        tokenized_segments: List of tokenized segments
+        tokenizer: Tokenizer object (should have a decode method)
+        
+    Returns:
+        Decoded text string
+        
+    Raises:
+        ImportError: If transformers is not available and tokenizer is None
+    """
+    if not TRANSFORMERS_AVAILABLE and tokenizer is None:
+        raise ImportError("Transformers is required for tokenization functionality. It should be available from your GPT-NeoX environment.")
+    
     concat_training_sample = np.concatenate(tokenized_segments)
     return tokenizer.decode(
         concat_training_sample,

@@ -54,7 +54,8 @@ This installs core dependencies:
 - `numpy` - Array operations
 - `pandas` - Data processing  
 - `tqdm` - Progress bars
-- `transformers` - Tokenizer support
+
+**Note:** `transformers` and `torch` are provided by the GPT-NeoX environment when needed for advanced functionality.
 
 #### Option 2: With Search Functionality
 
@@ -125,7 +126,7 @@ TokenSmith is designed to work with or without GPT-NeoX:
 - **Without GPT-NeoX**: Core functionality, search, UI, and most operations work perfectly
 - **With GPT-NeoX**: Full dataset editing and advanced Megatron-compatible operations are available
 
-**Note:** Torch is provided by the GPT-NeoX environment and is not included as a TokenSmith dependency to avoid version conflicts.
+**Note:** `torch` and `transformers` are provided by the GPT-NeoX environment and are not included as TokenSmith dependencies to avoid version conflicts.
 
 #### Python Version Requirements
 
