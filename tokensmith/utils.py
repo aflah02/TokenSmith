@@ -7,7 +7,6 @@ from tqdm import trange
 import uuid
 from typing import Optional, List, Dict, Any
 from transformers import AutoTokenizer
-import torch
 import os
 from functools import lru_cache
 import time

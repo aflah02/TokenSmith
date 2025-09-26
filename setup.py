@@ -21,19 +21,25 @@ setup(
         'pandas>=1.3.0', 
         'tqdm>=4.62.0',
         'transformers>=4.20.0',
-        'torch>=1.11.0',
-        'tokengrams>=0.3.0',
     ],
     extras_require={
         'ui': [
             'streamlit>=1.20.0',
             'altair>=4.2.0',
         ],
+        'search': [
+            'tokengrams>=0.3.0',
+        ],
         'docs': [
             'mkdocs>=1.5.0',
             'mkdocs-material>=9.0.0', 
             'mkdocstrings[python]>=0.24.0',
             'mkdocstrings-python>=1.7.0',
+        ],
+        'all': [
+            'streamlit>=1.20.0',
+            'altair>=4.2.0',
+            'tokengrams>=0.3.0',
         ],
     },
 )
