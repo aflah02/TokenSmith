@@ -1,12 +1,21 @@
 # Heavily inspired by the original code from https://github.com/EleutherAI/tokengrams/blob/master/tokengrams/tokengrams.pyi and uses the same library.
 
-from tokengrams import MemmapIndex
 from typing import List
 import os
 import logging
 
+# Optional tokengrams import - will be imported when needed
+try:
+    from tokengrams import MemmapIndex
+    TOKENGRAMS_AVAILABLE = True
+except ImportError:
+    MemmapIndex = None
+    TOKENGRAMS_AVAILABLE = False
+
 class SearchHandler:
     def __init__(self, bin_file_path: str, index_save_path: str, vocab: int, verbose: bool = True, reuse: bool = True):
+        if not TOKENGRAMS_AVAILABLE:
+            raise ImportError("Tokengrams is required for search functionality. Please install with: pip install 'tokensmith[search]' or pip install tokengrams")
 
         self.bin_file_path = bin_file_path
         self.index_save_path = index_save_path

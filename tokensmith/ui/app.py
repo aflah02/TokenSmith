@@ -62,6 +62,8 @@ def init_session_state():
                 from transformers import AutoTokenizer
                 print(f"Loading tokenizer from {st.session_state.args.tokenizer_path}")
                 st.session_state.tokenizer = AutoTokenizer.from_pretrained(st.session_state.args.tokenizer_path)
+            except ImportError:
+                st.error("Transformers library not available. Tokenizer functionality requires transformers to be installed (should be available in GPT-NeoX environment).")
             except Exception as e:
                 st.error(f"Failed to load tokenizer: {e}")
     

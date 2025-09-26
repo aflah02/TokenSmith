@@ -6,13 +6,27 @@ import os
 from tqdm import trange
 import uuid
 from typing import Optional, List, Dict, Any
-from megatron.data.indexed_dataset import MMapIndexedDataset
-from .megatron_dependencies import get_train_valid_test_split_, build_index_mappings
-from transformers import AutoTokenizer
-import torch
 import os
 from functools import lru_cache
 import time
+
+# Optional transformers imports - will be imported when needed
+try:
+    from transformers import AutoTokenizer
+    TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    AutoTokenizer = None
+    TRANSFORMERS_AVAILABLE = False
+
+# Optional megatron imports - will be imported when needed
+try:
+    from megatron.data.indexed_dataset import MMapIndexedDataset
+    MEGATRON_AVAILABLE = True
+except ImportError:
+    MMapIndexedDataset = None
+    MEGATRON_AVAILABLE = False
+
+from .megatron_dependencies import get_train_valid_test_split_, build_index_mappings
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +35,22 @@ def warn_once(logger: logging.Logger, msg: str):
     logger.warning(msg)
     time.sleep(10)
 
-def generate_training_sample(tokenized_segments: List[List[int]], tokenizer: AutoTokenizer) -> str:
+def generate_training_sample(tokenized_segments: List[List[int]], tokenizer) -> str:
+    """Generate training sample from tokenized segments using a tokenizer.
+    
+    Args:
+        tokenized_segments: List of tokenized segments
+        tokenizer: Tokenizer object (should have a decode method)
+        
+    Returns:
+        Decoded text string
+        
+    Raises:
+        ImportError: If transformers is not available and tokenizer is None
+    """
+    if not TRANSFORMERS_AVAILABLE and tokenizer is None:
+        raise ImportError("Transformers is required for tokenization functionality. It should be available from your GPT-NeoX environment.")
+    
     concat_training_sample = np.concatenate(tokenized_segments)
     return tokenizer.decode(
         concat_training_sample,
@@ -61,6 +90,9 @@ class WriteableMMapIndexedDataset:
                  packing_impl: str,
                  allow_chopped: bool,
                  add_extra_token_to_seq: int):
+        if not MEGATRON_AVAILABLE:
+            raise ImportError("Megatron is required for WriteableMMapIndexedDataset functionality. Please install GPT-NeoX following the instructions in the README.")
+            
         logger.debug(f"Initializing WriteableMMapIndexedDataset with pointer: {dataset_prefix}.bin and index: {dataset_prefix}.idx")
 
         self.corpus_pointer = open(f"{dataset_prefix}.bin", 'r+b')

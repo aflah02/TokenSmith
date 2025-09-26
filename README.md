@@ -38,46 +38,69 @@ DatasetManager
 
 ### Installation
 
-Ensure you have a working GPT-NeoX environment using steps provided [here](https://github.com/EleutherAI/gpt-neox?tab=readme-ov-file#environment-and-dependencies)
+`TokenSmith` can be installed in several ways depending on your use case.
 
-Within the same env run the following - 
+Note: Apart from search all features assume that GPT-NeoX is installed to use Megatron. You can do that by simply following the steps provided [here](https://github.com/EleutherAI/gpt-neox?tab=readme-ov-file#environment-and-dependencies).
+
+## 1. Basic Installation (Core Only)
+
+If you only need the **core functionality** (data editing, sampling, importing, exporting, inspection):
+
+```bash
+pip install tokensmith
+```
+
+## 2. With Documentation Dependencies
+
+If you plan to build or serve the documentation locally:
+
+```bash
+pip install "tokensmith[docs]"
+```
+
+Once installed, you can build and serve the docs:
+
+```bash
+mkdocs serve
+```
+
+## 3. With UI Components
+
+If you want the **interactive interface** for exploring data:
+
+```bash
+pip install "tokensmith[ui]"
+```
+
+## 4. With Search Features
+
+For advanced **token-level search and n-gram utilities**:
+
+```bash
+pip install "tokensmith[search]"
+```
+
+## 5. Full Installation (Everything)
+
+To install **all optional features**:
+
+```bash
+pip install "tokensmith[all]"
+```
+
+This includes docs, UI, and search extras.
+
+## 6. Development Installation
+
+If you’re contributing to `tokensmith`:
 
 ```bash
 git clone https://github.com/aflah02/tokensmith.git
 cd tokensmith
-pip install -e .
+pip install -e ".[all,docs,ui,search]"
 ```
 
-### Basic Usage
-
-```python
-from tokensmith import DatasetManager
-from transformers import AutoTokenizer
-
-# Initialize the manager
-manager = DatasetManager()
-
-# Setup dataset for inspection, sampling, editing, and export
-manager.setup_edit_inspect_sample_export(
-    dataset_prefix="path/to/your/dataset",
-    batch_info_save_prefix="path/to/batch_info",
-    train_iters=1000,
-    train_batch_size=32,
-    train_seq_len=1024,
-    seed=42
-)
-
-# Setup search functionality (optional)
-manager.setup_search(
-    bin_file_path="path/to/dataset.bin",
-    search_index_save_path="path/to/search_index",
-    vocab=2**16,  # or 2**32 for larger vocabularies
-    reuse=True
-)
-
-# Load a tokenizer for detokenization
-tokenizer = AutoTokenizer.from_pretrained("gpt2")
-```
+This sets up a local environment with all extras for development.
 
 ## 📚 Core Functionality
 
