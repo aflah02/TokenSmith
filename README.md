@@ -40,9 +40,9 @@ DatasetManager
 
 TokenSmith can be installed with different dependency sets depending on your use case:
 
-#### Option 1: Core Functionality Only (Recommended)
+#### Option 1: Core Dependencies Only
 
-For basic TokenSmith functionality including inspect, sample, export, and edit operations:
+For basic installation (most functionality still requires GPT-NeoX environment):
 
 ```bash
 git clone https://github.com/aflah02/tokensmith.git
@@ -55,11 +55,11 @@ This installs core dependencies:
 - `pandas` - Data processing  
 - `tqdm` - Progress bars
 
-**Note:** `transformers` and `torch` are provided by the GPT-NeoX environment when needed for advanced functionality.
+**Note:** This installation alone only allows imports. Dataset operations, UI, and most functionality require GPT-NeoX environment.
 
-#### Option 2: With Search Functionality
+#### Option 2: With Search Functionality (Works Standalone)
 
-For search and indexing operations using tokengrams:
+For search and indexing operations using tokengrams - **this is the only option that works without GPT-NeoX**:
 
 ```bash
 git clone https://github.com/aflah02/tokensmith.git
@@ -72,7 +72,7 @@ Or with Poetry:
 poetry install --with search
 ```
 
-#### Option 3: With UI Support
+#### Option 3: With UI Support (Requires GPT-NeoX)
 
 For the interactive Streamlit web interface:
 
@@ -100,7 +100,7 @@ Or with Poetry:
 poetry install --with docs
 ```
 
-#### Option 5: Complete Installation (All Features)
+#### Option 5: Complete Installation (Requires GPT-NeoX)
 
 For all optional dependencies (search, UI, and docs):
 
@@ -123,8 +123,8 @@ pip install -e ".[search,ui]"  # Search + UI
 **Note:** For functionality that requires GPT-NeoX/Megatron (such as `WriteableMMapIndexedDataset` and some advanced dataset operations), you must separately install GPT-NeoX following the steps provided [here](https://github.com/EleutherAI/gpt-neox?tab=readme-ov-file#environment-and-dependencies).
 
 TokenSmith is designed to work with or without GPT-NeoX:
-- **Without GPT-NeoX**: Core functionality, search, UI, and most operations work perfectly
-- **With GPT-NeoX**: Full dataset editing and advanced Megatron-compatible operations are available
+- **Without GPT-NeoX**: Only search functionality works standalone
+- **With GPT-NeoX**: Full functionality including UI, dataset operations, editing, sampling, and advanced operations
 
 **Note:** `torch` and `transformers` are provided by the GPT-NeoX environment and are not included as TokenSmith dependencies to avoid version conflicts.
 
@@ -135,32 +135,26 @@ TokenSmith is designed to work with or without GPT-NeoX:
 
 #### Which Installation Option to Choose?
 
-- **Core functionality**: Use Option 1 if you want basic dataset operations without search or UI
-- **Search features**: Use Option 2 if you need token sequence search and indexing  
-- **Web interface**: Use Option 3 if you want the interactive Streamlit UI for visual dataset exploration
-- **Documentation**: Use Option 4 if you're contributing to documentation or want to build docs locally  
-- **Complete features**: Use Option 5 if you want all functionality available
-- **Development**: Use Option 5 if you're developing TokenSmith or want all features
+- **Search only**: Use Option 2 if you only need token sequence search and indexing (works standalone)
+- **Full functionality**: Use Options 3-5 if you need UI or dataset operations (requires GPT-NeoX environment)
+  - **Web interface**: Use Option 3 for interactive Streamlit UI
+  - **Documentation**: Use Option 4 for contributing to docs
+  - **Complete features**: Use Option 5 for all functionality
+- **Development**: Use Option 5 for developing TokenSmith
+
+**Important**: Only search functionality works without GPT-NeoX. All other features require the GPT-NeoX environment.
 
 ### Basic Usage
 
-#### Core Functionality (Works with basic installation)
+#### Search Functionality (Works standalone - no GPT-NeoX required)
 
 ```python
 from tokensmith import DatasetManager
-from transformers import AutoTokenizer
 
 # Initialize the manager
 manager = DatasetManager()
 
-# Load a tokenizer for detokenization
-tokenizer = AutoTokenizer.from_pretrained("gpt2")
-```
-
-#### Search Functionality (Requires search installation)
-
-```python
-# Setup search functionality - requires tokengrams
+# Setup search functionality - requires tokengrams but no GPT-NeoX
 try:
     manager.setup_search(
         bin_file_path="path/to/dataset.bin",
@@ -179,12 +173,17 @@ except ImportError as e:
     print("ℹ️ Search functionality requires tokengrams: pip install 'tokensmith[search]'")
 ```
 
-#### Advanced Operations (Requires GPT-NeoX environment)
+#### Dataset Operations (Requires GPT-NeoX environment)
 
 ```python
-# Setup dataset for inspection, sampling, editing, and export
-# Note: This requires GPT-NeoX/Megatron to be installed
+from tokensmith import DatasetManager
+
+# Initialize the manager
+manager = DatasetManager()
+
+# Note: All operations below require GPT-NeoX environment to be installed
 try:
+    # Setup dataset for inspection, sampling, editing, and export
     manager.setup_edit_inspect_sample_export(
         dataset_prefix="path/to/your/dataset",
         batch_info_save_prefix="path/to/batch_info",
@@ -193,14 +192,21 @@ try:
         train_seq_len=1024,
         seed=42
     )
+    
+    # Load a tokenizer (requires transformers from GPT-NeoX environment)
+    from transformers import AutoTokenizer
+    tokenizer = AutoTokenizer.from_pretrained("gpt2")
+    
     print("✅ Full functionality available")
 except ImportError as e:
-    print("ℹ️ Advanced operations require GPT-NeoX installation")
+    print("ℹ️ Dataset operations require GPT-NeoX installation")
+    print("   See: https://github.com/EleutherAI/gpt-neox")
 ```
 
-#### Web UI Usage (Requires UI installation)
+#### Web UI Usage (Requires GPT-NeoX environment)
 
 ```bash
+# Note: UI requires GPT-NeoX environment
 # Navigate to UI directory and run
 cd tokensmith/ui
 ./run_ui.sh
