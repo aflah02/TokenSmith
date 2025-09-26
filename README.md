@@ -38,7 +38,7 @@ DatasetManager
 
 ### Installation
 
-`tokensmith` can be installed in several ways depending on your use case.
+`TokenSmith` can be installed in several ways depending on your use case.
 
 Note: Apart from search all features assume that GPT-NeoX is installed to use Megatron. You can do that by simply following the steps provided [here](https://github.com/EleutherAI/gpt-neox?tab=readme-ov-file#environment-and-dependencies).
 
