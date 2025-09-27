@@ -47,7 +47,9 @@ Note: Apart from search all features assume that GPT-NeoX is installed to use Me
 If you only need the **core functionality** (data editing, sampling, importing, exporting, inspection):
 
 ```bash
-pip install tokensmith
+git clone https://github.com/aflah02/tokensmith.git
+cd tokensmith
+pip install -e .
 ```
 
 ## 2. With Documentation Dependencies
@@ -55,7 +57,9 @@ pip install tokensmith
 If you plan to build or serve the documentation locally:
 
 ```bash
-pip install "tokensmith[docs]"
+git clone https://github.com/aflah02/tokensmith.git
+cd tokensmith
+pip install -e ".[docs]"
 ```
 
 Once installed, you can build and serve the docs:
@@ -69,7 +73,9 @@ mkdocs serve
 If you want the **interactive interface** for exploring data:
 
 ```bash
-pip install "tokensmith[ui]"
+git clone https://github.com/aflah02/tokensmith.git
+cd tokensmith
+pip install -e ".[ui]"
 ```
 
 ## 4. With Search Features
@@ -77,7 +83,9 @@ pip install "tokensmith[ui]"
 For advanced **token-level search and n-gram utilities**:
 
 ```bash
-pip install "tokensmith[search]"
+git clone https://github.com/aflah02/tokensmith.git
+cd tokensmith
+pip install -e ".[search]"
 ```
 
 ## 5. Full Installation (Everything)
@@ -85,7 +93,9 @@ pip install "tokensmith[search]"
 To install **all optional features**:
 
 ```bash
-pip install "tokensmith[all]"
+git clone https://github.com/aflah02/tokensmith.git
+cd tokensmith
+pip install -e ".[all]"
 ```
 
 This includes docs, UI, and search extras.
