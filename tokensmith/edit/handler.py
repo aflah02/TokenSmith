@@ -153,7 +153,7 @@ class EditHandler:
                 "modified_sample": {
                     "raw_tokens": concat_edited_sample.tolist(),
                     "decoded_text": edited_decoded,
-                    "num_documents": len(edited_sample)
+                    "num_documents": len(edited_sample) if not dry_run else None
                 },
                 "injection_details": injection_details
             }
