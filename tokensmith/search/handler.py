@@ -15,7 +15,7 @@ except ImportError:
 class SearchHandler:
     def __init__(self, bin_file_path: str, index_save_path: str, vocab: int, verbose: bool = True, reuse: bool = True):
         if not TOKENGRAMS_AVAILABLE:
-            raise ImportError("Tokengrams is required for search functionality. Please install with: pip install 'tokensmith[search]' or pip install tokengrams")
+            raise ImportError("Tokengrams is required for search functionality. Please install with: pip install tokengrams or by selecting the correct extras when installing tokensmith.")
 
         self.bin_file_path = bin_file_path
         self.index_save_path = index_save_path
