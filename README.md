@@ -112,6 +112,10 @@ pip install -e ".[all,docs]"
 
 This sets up a local environment with all extras for development.
 
+## 🚀 Quick Start on Modal
+
+We provide an example project to help you quickly set up TokenSmith on Modal, a serverless cloud platform, using its Notebooks feature. To get started, follow the instructions in the `modal_example` directory.
+
 ## 📚 Core Functionality
 
 ### 🔍 Search Operations
@@ -291,9 +295,7 @@ Comprehensive tutorials and examples are available in the `tutorials/` directory
 To build and serve the documentation locally:
 
 ```bash
-# Install documentation dependencies
-pip install -r docs-requirements.txt
-
+# Make sure you install docs by the appropriate command mentioned above
 # Serve locally (auto-reloads on changes)
 mkdocs serve
 # or use the convenience script
