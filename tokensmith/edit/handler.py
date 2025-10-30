@@ -93,7 +93,7 @@ class EditHandler:
         orig_decoded = tokenizer.decode(concat_orig_sample) if hasattr(tokenizer, 'decode') else str(concat_orig_sample)
 
         if not return_details:
-            print(f"Training sample {injection_loc}")
+            print(f"Training sample {injection_loc} before injection")
             print(f"Sample consists of segments from {len(orig_sample)} documents")
             print(f"Raw sample: {concat_orig_sample}")
             print("---")
@@ -133,7 +133,7 @@ class EditHandler:
             edited_sample = None # Since it's a dry run we don't fetch the full edited sample
 
         if not return_details:
-            print(f"Training sample {injection_loc} after injection")
+            print(f"Training sample {injection_loc} after injection" + (" (dry run, no actual change made)" if dry_run else ""))
             print(f"Raw sample: {concat_edited_sample}")
             print("---")
             print(f"Decoded sample: {edited_decoded}")
