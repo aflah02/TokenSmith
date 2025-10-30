@@ -76,7 +76,7 @@ class EditHandler:
             warnings.warn("Tokenizer does not have an EOS token, skipping EOS token addition.")
         
         if not return_details:
-            print(f"Dummy sample: {dummy_sample}")
+            print(f"Dummy sample: {dummy_sample}\n")
 
         rng = rng or np.random.default_rng(1234)
         dataset = self.manager.WriteableMMapIndexedDataset
