@@ -90,7 +90,7 @@ pip install -e ".[search]"
 
 ## 5. Full Installation (Everything)
 
-To install **all optional features**:
+To install **all optional features** (does not include docs):
 
 ```bash
 git clone https://github.com/aflah02/tokensmith.git
@@ -107,7 +107,7 @@ If you’re contributing to `tokensmith`:
 ```bash
 git clone https://github.com/aflah02/tokensmith.git
 cd tokensmith
-pip install -e ".[all,docs,ui,search]"
+pip install -e ".[all,docs]"
 ```
 
 This sets up a local environment with all extras for development.
