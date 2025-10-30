@@ -112,16 +112,23 @@ class EditHandler:
         except Exception as e:
             raise ValueError(f"Failed to inject sample: {e}")
 
-        # Get modified sample
-        try:
-            edited_sample = dataset.get_example_by_id(
-                example_loc=injection_loc, return_doc_details=False
-            )
-        except Exception as e:
-            raise ValueError(f"Failed to retrieve modified sample: {e}")
+        if not dry_run:
+            # Get modified sample
+            try:
+                edited_sample = dataset.get_example_by_id(
+                    example_loc=injection_loc, return_doc_details=False
+                )
+            except Exception as e:
+                raise ValueError(f"Failed to retrieve modified sample: {e}")
 
-        concat_edited_sample = np.concatenate(edited_sample)
-        edited_decoded = tokenizer.decode(concat_edited_sample) if hasattr(tokenizer, 'decode') else str(concat_edited_sample)
+            concat_edited_sample = np.concatenate(edited_sample)
+
+            edited_decoded = tokenizer.decode(concat_edited_sample) if hasattr(tokenizer, 'decode') else str(concat_edited_sample)
+        else:
+
+            concat_edited_sample = injection_details['injection_data']
+
+            edited_decoded = tokenizer.decode(injection_details['injection_data']) if hasattr(tokenizer, 'decode') else str(injection_details['injection_data'])
 
         if not return_details:
             print(f"Training sample {injection_loc} after injection")
