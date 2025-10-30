@@ -10,7 +10,7 @@ repository = "https://github.com/aflah02/tokensmith"
 keywords = ["dataset", "management", "editing", "sampling", "exporting", "searching"]
 
 [tool.poetry.dependencies]
-python = "3.11.2"
+python = ">=3.11"
 # Core dependencies
 numpy = "^1.26.4"
 pandas = "^2.2.3"

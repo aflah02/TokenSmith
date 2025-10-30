@@ -31,7 +31,7 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=="==3.11.2",
+    python_requires=">=3.11",
     install_requires=[
         "numpy>=1.26.4",
         "pandas>=2.2.3",
