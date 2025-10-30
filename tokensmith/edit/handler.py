@@ -292,7 +292,7 @@ class EditHandler:
             return False
         
         try:
-            return injection_loc < self.WriteableMMapIndexedDataset.num_samples
+            return injection_loc < self.manager.WriteableMMapIndexedDataset.num_samples
         except Exception:
             return False
 
