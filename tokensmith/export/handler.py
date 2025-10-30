@@ -10,6 +10,69 @@ if TYPE_CHECKING:
 class ExportHandler:
     def __init__(self, manager: 'DatasetManager'):
         self.manager = manager
+    
+    @staticmethod
+    def _normalize_content(content: Any) -> Any:
+        """Convert tensors/ndarrays to lists and keep strings/lists JSON-serializable."""
+        # Strings are already JSON serializable
+        if isinstance(content, str):
+            return content
+        # Numpy arrays / torch tensors
+        if hasattr(content, "tolist"):
+            try:
+                return content.tolist()
+            except Exception:
+                pass
+        # Python lists/tuples -> list
+        if isinstance(content, (list, tuple)):
+            return list(content)
+        # Numbers or other JSON-serializable primitives
+        return content
+
+    @staticmethod
+    def _normalize_for_json(obj: Any) -> Any:
+        """Recursively convert objects to JSON-serializable types.
+        - dict -> dict with normalized values
+        - list/tuple/set -> list with normalized items
+        - numpy/torch arrays -> tolist()
+        - numpy scalars -> item()
+        - Path -> str
+        Otherwise returned as-is.
+        """
+        # Primitives
+        if obj is None or isinstance(obj, (str, int, float, bool)):
+            return obj
+        # Mapping
+        if isinstance(obj, dict):
+            return {k: ExportHandler._normalize_for_json(v) for k, v in obj.items()}
+        # Sequences/Sets
+        if isinstance(obj, (list, tuple, set)):
+            return [ExportHandler._normalize_for_json(x) for x in obj]
+        # numpy/torch arrays
+        if hasattr(obj, "tolist"):
+            try:
+                return obj.tolist()
+            except Exception:
+                pass
+        # numpy scalar
+        if hasattr(obj, "item") and not isinstance(obj, (bytes, bytearray)):
+            try:
+                return obj.item()
+            except Exception:
+                pass
+        # Path-like
+        if isinstance(obj, Path):
+            return str(obj)
+        return obj
+
+    @staticmethod
+    def _stringify_for_csv(value: Any) -> str:
+        """Best-effort conversion of values for CSV cell content."""
+        v = ExportHandler._normalize_for_json(value)
+        # If still a complex type (list/dict), dump as compact JSON
+        if isinstance(v, (list, dict)):
+            return json.dumps(v, ensure_ascii=False)
+        return str(v)
 
     def export_batches(
         self,
@@ -384,6 +447,29 @@ class ExportHandler:
     ) -> None:
         """Export data to JSONL format."""
         with open(output_path, 'w', encoding='utf-8') as f:
+            # If exporting batches and not flattening, write one JSON object per batch
+            if not flatten and export_type == "batch":
+                for batch_idx, batch in enumerate(data):
+                    if include_doc_details:
+                        samples = []
+                        for item in batch:
+                            content, doc_details = item
+                            samples.append({
+                                "content": self._normalize_content(content),
+                                "doc_details": self._normalize_for_json(doc_details)
+                            })
+                    else:
+                        samples = [self._normalize_content(item) for item in batch]
+
+                    record = {
+                        "batch_id": batch_idx,
+                        "samples": samples
+                    }
+                    json.dump(record, f, ensure_ascii=False)
+                    f.write('\n')
+                return
+
+            # Default behavior: write a flat list of samples
             if flatten:
                 # Flatten all batches/sequences into a single list
                 flattened_data = []
@@ -425,13 +511,13 @@ class ExportHandler:
                 content, doc_details = sample
                 record = {
                     "index": start_idx + i,
-                    "content": content if isinstance(content, str) else content.tolist(),
-                    "doc_details": doc_details
+                    "content": self._normalize_content(content),
+                    "doc_details": self._normalize_for_json(doc_details)
                 }
             else:
                 record = {
                     "index": start_idx + i,
-                    "content": sample if isinstance(sample, str) else sample.tolist()
+                    "content": self._normalize_content(sample)
                 }
             
             json.dump(record, file_handle, ensure_ascii=False)
@@ -464,14 +550,14 @@ class ExportHandler:
                 content, doc_details = sample
                 row = {
                     "index": start_idx + i,
-                    "content": content if isinstance(content, str) else str(content.tolist())
+                    "content": ExportHandler._stringify_for_csv(content)
                 }
                 if doc_details:
-                    row.update(doc_details)
+                    row.update({k: ExportHandler._stringify_for_csv(v) for k, v in doc_details.items()})
             else:
                 row = {
                     "index": start_idx + i,
-                    "content": sample if isinstance(sample, str) else str(sample.tolist())
+                    "content": ExportHandler._stringify_for_csv(sample)
                 }
             
             writer.writerow(row)
