@@ -130,6 +130,8 @@ class EditHandler:
 
             edited_decoded = tokenizer.decode(injection_details['injection_data']) if hasattr(tokenizer, 'decode') else str(injection_details['injection_data'])
 
+            edited_sample = None # Since it's a dry run we don't fetch the full edited sample
+
         if not return_details:
             print(f"Training sample {injection_loc} after injection")
             print(f"Raw sample: {concat_edited_sample}")
